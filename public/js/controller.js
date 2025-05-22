@@ -40,7 +40,18 @@ let onAddAlbumCardClick = () => {
 
         if (albumName && featuredPhotoId) {
             try {
-                await albumsModel.create({ name: albumName, featured_photo_id: featuredPhotoId });
+                let newAlbumID = await albumsModel.create({ name: albumName, featured_photo_id: featuredPhotoId });
+
+                let newAlbum = await albumsModel.get(newAlbumID);     
+                let newAlbumCard = document.createElement("li");
+                newAlbumCard.innerHTML = `
+                    <a href="?action=view_album&id=${newAlbumID}">
+                        <img src="${newAlbum.featured_photo_filepath}" alt="${newAlbum.name}" />
+                        <p>${newAlbum.name}</p>
+                    </a>
+                `;
+                document.querySelector('#gallery').insertBefore(newAlbumCard, addAlbumCard);
+                addAlbumCard.innerHTML = addAlbumCardHTML;
             } catch (error) {
                 alert("Une erreur est survenue durant la création de l'album.");
             }

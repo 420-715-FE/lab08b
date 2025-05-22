@@ -44,6 +44,21 @@ nav li:not(:last-child)::after {
     box-sizing: border-box;
 }
 
+.add_item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgray;
+    color: black;
+    border-radius: 8px;
+    height: 200px;
+    cursor: pointer;
+}
+
+.plus_character {
+    font-size: 5em;
+}
+
 @media (max-width: 1024px) {
     #gallery li {
         flex: 1 1 calc(33.33% - 16px);

@@ -27,6 +27,8 @@ generateHTMLHeader('Galerie de photos');
             </a>
         </li>
     <?php endforeach; ?>
+
+    <li class="add_item">+</input></li>
 </ul>
 
 </body>

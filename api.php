@@ -5,7 +5,7 @@
   de ce fichier à partir de htdocs, avec `/api/` à la fin)
   *** Ne PAS omettre les barres obliques au début et à la fin ***
 */
-const BASE_URL = "/lab08a/api/";
+const BASE_URL = "/lab08b/api/";
 
 require_once("db.php");
 require_once("models/album.php");
@@ -56,7 +56,41 @@ $body = json_decode($jsonBody, true); // Convertit le JSON en tableau PHP (assoc
 /* Si la route commence par "albums".
    Vous devez compléter le code dans cette condition pour implémenter toutes les routes de votre API. */
 try {
-    if ($routeParts[0] == 'albums') {
+    if ($routeParts[0] == 'photos') {
+        // Traitement des routes qui commencent par `photos/{idPhoto}/`
+
+        if (isset($routeParts[1])) {
+            $photoId = intval($routeParts[1]);
+            $photo = $photoModel->get($photoId);
+
+            if (!$photo) {
+                sendResponse('404', ["error" => "Photo not found."]);
+            }
+
+            switch ($method) {
+                case "GET":
+                    sendResponse(200, $photo);
+                    break;
+                case "DELETE":
+                    $photoModel->delete($photoId);
+                    sendResponse(200);
+                    break;
+                default:
+                    sendResponse(404);
+            }
+        } else {
+            // Traitement de la route "photos"
+            switch ($method) {
+                case "GET":
+                    $photos = $photoModel->getAll();
+                    sendResponse(200, $photos);
+                    break;
+                default:
+                    sendResponse(404);
+            }
+        }
+    }
+    else if ($routeParts[0] == 'albums') {
         if (isset($routeParts[1])) {
             // Traitement des routes qui commencent par `albums/{idAlbum}/`
 

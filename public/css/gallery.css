@@ -50,10 +50,13 @@ nav li:not(:last-child)::after {
     align-items: center;
     background-color: lightgray;
     color: black;
-    font-size: 5em;
     border-radius: 8px;
     height: 200px;
     cursor: pointer;
+}
+
+.plus_character {
+    font-size: 5em;
 }
 
 @media (max-width: 1024px) {

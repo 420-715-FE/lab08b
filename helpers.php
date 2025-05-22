@@ -10,7 +10,7 @@ function generateHTMLHeader($pageTitle) {
         <title><?= $pageTitle ?></title>
         <link rel="stylesheet" href="public/css/water.css" />
         <link rel="stylesheet" href="public/css/gallery.css" />
-        <script defer src="public/js/controller.js"></script>
+        <script type="module" defer src="public/js/controller.js"></script>
     </head>
 <?php
 }

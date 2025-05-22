@@ -34,19 +34,16 @@ let onAddAlbumCardClick = () => {
 
     addAlbumCard.removeEventListener('click', onAddAlbumCardClick);
 
-    addAlbumCard.querySelector("#submit").addEventListener('click', () => {
+    addAlbumCard.querySelector("#submit").addEventListener('click', async () => {
         let albumName = addAlbumCard.querySelector("#album_name").value;
         let featuredPhotoId = addAlbumCard.querySelector("#featured_photo").value;
 
         if (albumName && featuredPhotoId) {
-            albumsModel.create({ name: albumName, featured_photo_id: featuredPhotoId })
-                .then(() => {
-                    addAlbumCard.innerHTML = addAlbumCardHTML;
-                    addAlbumCard.addEventListener('click', onAddAlbumCardClick);
-                })
-                .catch((error) => {
-                    console.error("Error creating album:", error);
-                });
+            try {
+                await albumsModel.create({ name: albumName, featured_photo_id: featuredPhotoId });
+            } catch (error) {
+                alert("Une erreur est survenue durant la création de l'album.");
+            }
         } else {
             alert("Veuillez remplir tous les champs.");
         }
